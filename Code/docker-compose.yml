@@ -1,0 +1,24 @@
+services:
+  probe:
+    pid: host
+    privileged: true
+    image: ghcr.io/paulojun-gomescos/code-probe:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: "linux/arm64"
+    working_dir: /
+    environment:
+      - PROBE_CONFIG_PATH=${PROBE_CONFIG_PATH}
+      - MQTT_BROKER=${MQTT_BROKER}
+      - MQTT_USERNAME=${MQTT_USERNAME}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+
+    volumes:
+      - probe_data:/probe/config
+
+    restart: unless-stopped
+    network_mode: host
+
+volumes:
+  probe_data:
