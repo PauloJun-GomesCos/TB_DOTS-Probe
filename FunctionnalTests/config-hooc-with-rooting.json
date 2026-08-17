@@ -1,0 +1,54 @@
+{
+  "id": "suite-1786015553724",
+  "name": "Config HOOC with rooting",
+  "description": "An HTTP configuration request is captured while configuring the HOOC to enable routing between the LAN and SEP0 networks. The resulting PCAP file is then used to test the pcap sending command",
+  "environment": {
+    "LAN": {
+      "probe_id": "probe-6a1a9c",
+      "interface": "eth1"
+    }
+  },
+  "tree": {
+    "type": "seq",
+    "children": [
+      {
+        "type": "command",
+        "command": {
+          "id": "capture-444d97e3",
+          "probe_label": "LAN",
+          "action": "capture",
+          "action_label": "Capture",
+          "params": {
+            "interface": "eth1",
+            "filter": "ip",
+            "timeout_s": 10
+          },
+          "timeout": 15
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "http-04ca044f",
+          "probe_label": "LAN",
+          "action": "http",
+          "action_label": "HTTP Request",
+          "params": {
+            "interface": "eth1",
+            "method": "POST",
+            "header": {
+              "Content-Type": "application/octet-stream"
+            },
+            "url": "http://192.168.2.1/api/config/import?password=1234",
+            "body": {
+              "type": "file",
+              "data": "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",
+              "name": "WithRooting.bin"
+            }
+          },
+          "timeout": 10
+        }
+      }
+    ]
+  }
+}

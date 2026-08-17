@@ -1,0 +1,277 @@
+{
+  "id": "suite-1785425727405",
+  "name": "Test ping + UDP/TCP + capture",
+  "description": "Test the ping command and the UDP/TCP command. Run an echo serveur UDP and TCP on bridge, then send pings and UDP/TCP messeages from SEP0 to Bridge. Everything is captures on Bridge.",
+  "environment": {
+    "Bridge": {
+      "probe_id": "probe-eeedb8",
+      "interface": "br0"
+    },
+    "SEP0": {
+      "probe_id": "probe-1d99b4",
+      "interface": "eth1"
+    }
+  },
+  "variables": {
+    "Addr_Bridge": "192.168.3.10",
+    "Addr_TCP_Serv": "192.168.3.10",
+    "Addr_UDP_Serv": "192.168.3.10",
+    "Port_TCP_Serv": "8080",
+    "Port_UDP_Serv": "8081"
+  },
+  "tree": {
+    "type": "seq",
+    "children": [
+      {
+        "type": "command",
+        "command": {
+          "id": "tcp-server-b00799d0",
+          "probe_label": "Bridge",
+          "action": "tcp-server",
+          "action_label": "TCP echo server",
+          "params": {
+            "interface": "br0",
+            "port": "${Port_TCP_Serv}",
+            "timeout_s": 3
+          },
+          "expected": [
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message TCP 1"
+            },
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message TCP 2"
+            }
+          ],
+          "timeout": 8
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "udp-server-aa4589b5",
+          "probe_label": "Bridge",
+          "action": "udp-server",
+          "action_label": "UDP echo server",
+          "params": {
+            "interface": "br0",
+            "port": "${Port_UDP_Serv}",
+            "timeout_s": 3
+          },
+          "expected": [
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message UDP 1"
+            },
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message UDP 2"
+            }
+          ],
+          "timeout": 8
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "capture-795fb772",
+          "probe_label": "Bridge",
+          "action": "capture",
+          "action_label": "Capture",
+          "params": {
+            "interface": "br0",
+            "filter": "ip",
+            "timeout_s": 3
+          },
+          "timeout": 8
+        }
+      },
+      {
+        "type": "parallel",
+        "children": [
+          {
+            "type": "command",
+            "command": {
+              "id": "ping-d0af74e0",
+              "probe_label": "SEP0",
+              "action": "ping",
+              "action_label": "Ping",
+              "params": {
+                "interface": "eth1",
+                "target": "${Addr_Bridge}",
+                "count": 4,
+                "timeout_ms": 1000
+              },
+              "expected": [
+                {
+                  "type_match": "equal",
+                  "values": {
+                    "packet_loss_percent": 0
+                  }
+                }
+              ],
+              "timeout": 6
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "ping-80f683f0",
+              "probe_label": "SEP0",
+              "action": "ping",
+              "action_label": "Ping",
+              "params": {
+                "interface": "eth1",
+                "target": "${Addr_Bridge}",
+                "count": 4,
+                "timeout_ms": 1000
+              },
+              "expected": [
+                {
+                  "type_match": "equal",
+                  "values": {
+                    "packet_loss_percent": 0
+                  }
+                }
+              ],
+              "timeout": 6
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "ping-3b87d47d",
+              "probe_label": "SEP0",
+              "action": "ping",
+              "action_label": "Ping",
+              "params": {
+                "interface": "eth1",
+                "target": "${Addr_Bridge}",
+                "count": 4,
+                "timeout_ms": 1000
+              },
+              "expected": [
+                {
+                  "type_match": "equal",
+                  "values": {
+                    "packet_loss_percent": 0
+                  }
+                }
+              ],
+              "timeout": 6
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "ping-5ea491e1",
+              "probe_label": "SEP0",
+              "action": "ping",
+              "action_label": "Ping",
+              "params": {
+                "interface": "eth1",
+                "target": "${Addr_Bridge}",
+                "count": 4,
+                "timeout_ms": 1000
+              },
+              "expected": [
+                {
+                  "type_match": "equal",
+                  "values": {
+                    "packet_loss_percent": 0
+                  }
+                }
+              ],
+              "timeout": 6
+            }
+          }
+        ]
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "tcp-8db0bebb",
+          "probe_label": "SEP0",
+          "action": "tcp",
+          "action_label": "TCP",
+          "params": {
+            "interface": "eth1",
+            "source-port": "${Port_TCP_Serv}",
+            "destination-ip": "${Addr_TCP_Serv}",
+            "destination-port": "${Port_TCP_Serv}",
+            "data": "Message TCP 1",
+            "waiting-response": false
+          },
+          "timeout": 10
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "tcp-c1cf7d61",
+          "probe_label": "SEP0",
+          "action": "tcp",
+          "action_label": "TCP",
+          "params": {
+            "interface": "eth1",
+            "source-port": "${Port_TCP_Serv}",
+            "destination-ip": "${Addr_TCP_Serv}",
+            "destination-port": "${Port_TCP_Serv}",
+            "data": "Message TCP 2",
+            "waiting-response": true
+          },
+          "expected": [
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message TCP 2"
+            }
+          ],
+          "timeout": 10
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "udp-b29df37c",
+          "probe_label": "SEP0",
+          "action": "udp",
+          "action_label": "UDP",
+          "params": {
+            "interface": "eth1",
+            "source-port": "${Port_UDP_Serv}",
+            "destination-ip": "${Addr_UDP_Serv}",
+            "destination-port": "${Port_UDP_Serv}",
+            "data": "Message UDP 1",
+            "waiting-response": false
+          },
+          "timeout": 10
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "udp-4ea0afcc",
+          "probe_label": "SEP0",
+          "action": "udp",
+          "action_label": "UDP",
+          "params": {
+            "interface": "eth1",
+            "source-port": "${Port_UDP_Serv}",
+            "destination-ip": "${Addr_UDP_Serv}",
+            "destination-port": "${Port_UDP_Serv}",
+            "data": "Message UDP 2",
+            "waiting-response": true
+          },
+          "expected": [
+            {
+              "type_match": "regex",
+              "regex_pattern": "Message UDP 2"
+            }
+          ],
+          "timeout": 10
+        }
+      }
+    ]
+  }
+}

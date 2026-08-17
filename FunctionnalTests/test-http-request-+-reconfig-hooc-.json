@@ -1,0 +1,180 @@
+{
+  "id": "suite-1786003126339",
+  "name": "Test HTTP request + Reconfig HOOC ",
+  "description": "Configuring the HOOC config by sending http request with a config file. We activate/desactivate the root LAN -> SEP0 and test the config with ping command. Everything is captured.",
+  "environment": {
+    "Bridge": {
+      "probe_id": "probe-eeedb8",
+      "interface": "br0"
+    },
+    "LAN": {
+      "probe_id": "probe-6a1a9c",
+      "interface": "eth1"
+    }
+  },
+  "variables": {
+    "Addr_SEP0_eth1": "192.168.3.130"
+  },
+  "tree": {
+    "type": "seq",
+    "children": [
+      {
+        "type": "command",
+        "command": {
+          "id": "capture-5177f820",
+          "probe_label": "Bridge",
+          "action": "capture",
+          "action_label": "Capture",
+          "params": {
+            "interface": "br0",
+            "filter": "ip",
+            "timeout_s": 30
+          },
+          "timeout": 35
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "ping-401aba0f",
+          "probe_label": "LAN",
+          "action": "ping",
+          "action_label": "Ping",
+          "params": {
+            "interface": "eth1",
+            "target": "${Addr_SEP0_eth1}",
+            "count": 4,
+            "timeout_ms": 1000
+          },
+          "expected": [
+            {
+              "type_match": "equal",
+              "values": {
+                "packet_loss_percent": 0
+              }
+            }
+          ],
+          "timeout": 6
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "http-7f019fde",
+          "probe_label": "LAN",
+          "action": "http",
+          "action_label": "HTTP Request",
+          "params": {
+            "interface": "eth1",
+            "method": "POST",
+            "header": {
+              "Content-Type": "application/octet-stream"
+            },
+            "url": "http://192.168.2.1/api/config/import?password=1234",
+            "body": {
+              "data": "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",
+              "name": "WithoutRooting.bin",
+              "type": "file"
+            }
+          },
+          "timeout": 15
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "pause-7466d7de",
+          "action": "pause",
+          "action_label": "Pause",
+          "params": {
+            "seconds": 5
+          },
+          "timeout": 310
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "ping-442aab0a",
+          "probe_label": "LAN",
+          "action": "ping",
+          "action_label": "Ping",
+          "params": {
+            "interface": "eth1",
+            "target": "${Addr_SEP0_eth1}",
+            "count": 4,
+            "timeout_ms": 1000
+          },
+          "expected": [
+            {
+              "type_match": "equal",
+              "values": {
+                "packet_loss_percent": 100
+              }
+            }
+          ],
+          "timeout": 6
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "http-ea62227b",
+          "probe_label": "LAN",
+          "action": "http",
+          "action_label": "HTTP Request",
+          "params": {
+            "interface": "eth1",
+            "method": "POST",
+            "header": {
+              "Content-Type": "application/octet-stream"
+            },
+            "url": "http://192.168.2.1/api/config/import?password=1234",
+            "body": {
+              "data": "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",
+              "name": "WithRooting.bin",
+              "type": "file"
+            }
+          },
+          "timeout": 15
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "pause-164128ef",
+          "action": "pause",
+          "action_label": "Pause",
+          "params": {
+            "seconds": 5
+          },
+          "timeout": 310
+        }
+      },
+      {
+        "type": "command",
+        "command": {
+          "id": "ping-69128b17",
+          "probe_label": "LAN",
+          "action": "ping",
+          "action_label": "Ping",
+          "params": {
+            "interface": "eth1",
+            "target": "${Addr_SEP0_eth1}",
+            "count": 4,
+            "timeout_ms": 1000
+          },
+          "expected": [
+            {
+              "type_match": "equal",
+              "values": {
+                "packet_loss_percent": 0
+              }
+            }
+          ],
+          "timeout": 6
+        }
+      }
+    ]
+  }
+}

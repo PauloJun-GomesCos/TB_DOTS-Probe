@@ -1,0 +1,88 @@
+{
+  "id": "suite-1786018299968",
+  "name": "Test port scan (coordinator)",
+  "description": "Test the portscan command by scanning the coordinator's ports, both with and without service detection (-sV).",
+  "environment": {
+    "SEP0": {
+      "probe_id": "probe-1d99b4",
+      "interface": "eth0"
+    }
+  },
+  "variables": {
+    "Coordinator": "192.168.38.54"
+  },
+  "tree": {
+    "type": "seq",
+    "children": [
+      {
+        "type": "parallel",
+        "children": [
+          {
+            "type": "command",
+            "command": {
+              "id": "portscan-ef1a634d",
+              "probe_label": "SEP0",
+              "action": "portscan",
+              "action_label": "Port Scan",
+              "params": {
+                "interface": "eth0",
+                "target": "${Coordinator}",
+                "ports": "80,443,8000-8020,8080",
+                "sV": true
+              },
+              "timeout": 40
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "portscan-4b2f0507",
+              "probe_label": "SEP0",
+              "action": "portscan",
+              "action_label": "Port Scan",
+              "params": {
+                "interface": "eth0",
+                "target": "${Coordinator}",
+                "ports": "80,443,8000-8020,8080",
+                "sV": false
+              },
+              "timeout": 20
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "portscan-023eea31",
+              "probe_label": "SEP0",
+              "action": "portscan",
+              "action_label": "Port Scan",
+              "params": {
+                "interface": "eth0",
+                "target": "${Coordinator}",
+                "ports": "1-65535",
+                "sV": false
+              },
+              "timeout": 60
+            }
+          },
+          {
+            "type": "command",
+            "command": {
+              "id": "portscan-7c231ba7",
+              "probe_label": "SEP0",
+              "action": "portscan",
+              "action_label": "Port Scan",
+              "params": {
+                "interface": "eth0",
+                "target": "${Coordinator}",
+                "ports": "1-65535",
+                "sV": true
+              },
+              "timeout": 60
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
