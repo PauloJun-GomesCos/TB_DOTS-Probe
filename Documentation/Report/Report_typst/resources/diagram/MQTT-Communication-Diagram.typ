@@ -1,8 +1,4 @@
-
-// - mqtt-discovery-sequence : discovery & presence sequence diagram
-// - mqtt-setup-sequence     : configuration (setup) sequence diagram
-// - mqtt-command-sequence   : test execution (command), sync + async
-
+// Generates the communication diagrams used in the thesis report.
 #let color-white = rgb("#ffffff")
 #let color-black = rgb("#000000")
 #let color-accent-1 = rgb("#031a38")
@@ -197,8 +193,8 @@
   )
 })
 
+// Generates the discovery request and status diagram.
 #let mqtt-discovery-sequence-size = (w: 21cm, h: 9cm)
-
 #let mqtt-discovery-sequence(w: 21cm, h: 9cm) = box(width: w, height: h, {
   set text(font: "Libertinus Serif", fill: color-black)
 
@@ -248,10 +244,10 @@
   ))
 })
 
-#let mqtt-setup-sequence-size = (w: 21cm, h: 9cm)
-
-#let mqtt-setup-sequence(w: 21cm, h: 9cm) = box(width: w, height: h, {
-  set text(font: "Grift", fill: color-black)
+// Generates the configuration request diagram.
+#let mqtt-config-sequence-size = (w: 21cm, h: 9cm)
+#let mqtt-config-sequence(w: 21cm, h: 9cm) = box(width: w, height: h, {
+  set text(font: "Libertinus Serif", fill: color-black)
 
   let PRB_X = 4.2cm
   let MGR_X = 16.5cm
@@ -299,10 +295,10 @@
   ))
 })
 
+// Generates the command request diagram.
 #let mqtt-command-sequence-size = (w: 21cm, h: 14cm)
-
 #let mqtt-command-sequence(w: 21cm, h: 14cm) = box(width: w, height: h, {
-  set text(font: "Grift", fill: color-black)
+  set text(font: "Libertinus Serif", fill: color-black)
 
   let PRB_X = 4.2cm
   let MGR_X = 16.5cm

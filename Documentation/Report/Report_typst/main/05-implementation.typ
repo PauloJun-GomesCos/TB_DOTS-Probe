@@ -1,11 +1,11 @@
 #import "../metadata.typ": *
 
 #import "../resources/diagram/fit.typ": fit
-#import "/resources/diagram/MQTT-Communication-content.typ": (
-  mqtt-setup-sequence, mqtt-setup-sequence-size, mqtt-command-sequence, mqtt-command-sequence-size, mqtt-discovery-sequence, mqtt-discovery-sequence-size,
+#import "/resources/diagram/MQTT-Communication-Diagram.typ": (
+  mqtt-config-sequence, mqtt-config-sequence-size, mqtt-command-sequence, mqtt-command-sequence-size, mqtt-discovery-sequence, mqtt-discovery-sequence-size,
 )
 
-#import "/resources/diagram/State-Machine.typ": (
+#import "/resources/diagram/State-Machine-Diagram.typ": (
   state-machine, state-machine-size
 )
 
@@ -110,7 +110,7 @@ This section presents the implementation of the probe and details the main compo
 
   === Configuration request
   #figure(
-    fit(mqtt-setup-sequence-size.w - 2cm, mqtt-setup-sequence-size.h, mqtt-setup-sequence()),
+    fit(mqtt-config-sequence-size.w - 2cm, mqtt-config-sequence-size.h, mqtt-config-sequence()),
     caption: [Sequence diagram - Control request],
   ) <Control-sequence>
 

@@ -7,7 +7,6 @@
 #let color-accent-4 = rgb("#2e9bff")
 #let color-HOOC = rgb("#1a428e")
 #let color-link = rgb("#e63946")
-#let color-link-2 = rgb("#f2a41e")
 #let color-coord = rgb("#1fb960")
 #let color-muted = rgb("#8aa0b8")
 
@@ -242,16 +241,18 @@
   }
 }
 
-#let system-size = (w: 21cm, h: 17cm)
+#let DualEnv-system-size = (w: 21cm, h: 17cm)
 
-#let system(w: 21cm, h: 17cm) = block(width: w, height: h, {
-  set text(font: "Grift", fill: color-black)
+// Generates the dual-environment system diagram
+#let DualEnv-system(w: 21cm, h: 17cm) = block(width: w, height: h, {
+  set text(font: "Libertinus Serif", fill: color-black)
 
   legend((
     ((color-coord), false, "Coordination network link"),
     ((color-link), false, "Test network link"),
   ))
 
+  // Config Environment
   let SEP0 = (x: 5cm, y: 4.5cm, r: 180deg)
   let BRIDGE = (x: 5cm, y: 7.5cm, r: 180deg)
   let MANAGER = (x: 7.43cm, y: 1.4cm, r: 270deg)
@@ -348,6 +349,7 @@
   ip(5.7cm, 4.5cm, "10.0.0.80", color: color-coord)
   ip(5.7cm, 7.5cm, "10.0.0.81", color: color-coord)
 
+  // Seperation line
   link-line(
     (
       (10.5cm, 0.3cm),
@@ -357,6 +359,7 @@
     dashed: true,
   )
 
+  // Test Environment
   let SEP0_2 = (x: 13cm, y: 4.5cm, r: 0deg)
   let BRIDGE_2 = (x: 13cm, y: 7.5cm, r: 0deg)
   let MANAGER_2 = (x: 13.6cm, y:1.4cm, r: 270deg)

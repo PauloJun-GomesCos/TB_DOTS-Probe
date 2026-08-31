@@ -1,20 +1,11 @@
-// Bare drawing content of Project-Architecture.typ, without the print
-// decoration (page background, logos, footer). Reusable from any Typst
-// document: import `system-overview` and call it inside a #figure.
-
+// Generates the probe architecture diagram used in the thesis report.
 #let color-white = rgb("#ffffff")
 #let color-black = rgb("#000000")
 #let color-accent-1 = rgb("#031a38")
 #let color-accent-2 = rgb("#043067")
 #let color-accent-3 = rgb("#0f63bf")
 #let color-accent-4 = rgb("#2e9bff")
-#let color-muted = rgb("#8aa0b8")
-#let color-field = rgb("#5a6b7d")
-
-// Protocol palette: one color per transport crossing the diagram.
-#let color-http = color-accent-3
 #let color-mqtt = rgb("#1fb960")
-#let color-sql = rgb("#d11f1f")
 
 #let legend(entries) = {
   for (i, entry) in entries.enumerate() {
@@ -114,11 +105,6 @@
   let (x1, y1) = p1
   let (x2, y2) = p2
   let ymid = if bend-y != none { bend-y } else { y1 + (y2 - y1) * bend }
-  // Drop consecutive duplicate points: when ymid coincides with y1 and/or y2
-  // (e.g. same-height endpoints, or an explicit bend-y equal to an endpoint),
-  // the raw 4-point elbow degenerates to a zero-length final segment, which
-  // breaks the arrow-direction lookup in `path` (it inspects the last two
-  // points). Deduping keeps that lookup on a genuinely non-zero segment.
   let raw = ((x1, y1), (x1, ymid), (x2, ymid), (x2, y2))
   let pts = (raw.first(),)
   for p in raw.slice(1) {
@@ -139,57 +125,10 @@
   }
 }
 
-#let hlink(x1, x2, y, color, label: none, dashed: false, both: false) = {
-  path(((x1, y), (x2, y)), color, dashed: dashed, arrow-start: both)
-  if label != none { tag((x1 + x2) / 2, y - 0.5cm, label, color: color-accent-1, w: calc.abs(x2 - x1) - 0.2cm) }
-}
-
-// --- sequence-diagram primitives --------------------------------------------
-
-#let actor-box(x, y, title, subtitle: none, w: 5.2cm, color: color-accent-1) = {
-  let txt = if subtitle != none {
-    text(size: 9.5pt, weight: "bold", tracking: 0.4pt, fill: color-white, title)
-    v(-0.3cm)
-    text(size: 6.5pt, weight: "regular", tracking: 0.2pt, fill: color-white, subtitle)
-  } else {
-    text(size: 9.5pt, weight: "bold", tracking: 0.4pt, fill: color-white, title)
-  }
-  place(
-    dx: x - w / 2,
-    dy: y - 0.37cm,
-    box(width: w, height: 0.74cm, radius: 0.15cm, fill: color, align(center + horizon, txt)),
-  )
-}
-
-#let lifeline(x, y0, y1, color: color-muted) = place(
-  dx: x,
-  dy: y0,
-  line(end: (0cm, y1 - y0), stroke: (paint: color, thickness: 0.8pt, dash: "dashed")),
-)
-
-#let msg(x1, x2, y, color, dashed: false, topic: none, note: none) = {
-  let dir = if x2 > x1 { 1 } else { -1 }
-  path(((x1, y), (x2, y)), color, dashed: dashed)
-  let lo = calc.min(x1, x2)
-  let width = calc.abs(x2 - x1)
-  if topic != none {
-    place(dx: lo, dy: y - 0.56cm, box(width: width, align(center, text(
-      size: 7.5pt,
-      fill: color-accent-1,
-      weight: "medium",
-      topic,
-    ))))
-  }
-  if note != none {
-    place(dx: lo, dy: y + 0.14cm, box(width: width, align(center, text(size: 6.3pt, fill: color-muted, note))))
-  }
-}
-
-// Native size of the diagram, for callers that need to fit it into a box.
-#let system-overview-size = (w: 21cm, h: 13.7cm)
-
-#let system-overview(w: 21cm, h: 13.1cm) = box(width: w, height: h, {
-  set text(font: "Grift", fill: color-black)
+// Generates the probe architecture diagram.
+#let probe-architecture-size = (w: 21cm, h: 13.7cm)
+#let probe-architecture(w: 21cm, h: 13.1cm) = box(width: w, height: h, {
+  set text(font: "Libertinus Serif", fill: color-black)
 
   let R0 = 1cm
   let R1 = 4cm

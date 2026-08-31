@@ -261,10 +261,10 @@
 }
 
 // Generates the test bench diagram.
-#let banctest-size = (w: 21cm, h: 12cm)
+#let testbench-size = (w: 21cm, h: 12cm)
 
-#let banctest(w: 21cm, h: 12cm) = box(width: w, height: h, {
-  set text(font: "Grift", fill: color-black)
+#let testbench(w: 21cm, h: 12cm) = box(width: w, height: h, {
+  set text(font: "Libertinus Serif", fill: color-black)
 
   legend((
     ((color-coord), false, "Coordination network link"),

@@ -1,5 +1,5 @@
 #import "/resources/diagram/fit.typ": fit
-#import "/resources/diagram/Project-Architecture-content.typ": (
+#import "/resources/diagram/Probe-Architecture-Diagram.typ": (
   system-overview, system-overview-size
 )
 #import "/resources/diagram/banctest-content.typ": (

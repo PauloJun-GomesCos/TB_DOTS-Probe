@@ -1,11 +1,11 @@
 #import "../metadata.typ": *
 
 #import "/resources/diagram/fit.typ": fit
-#import "/resources/diagram/System-content.typ": (
-  system, system-size
+#import "/resources/diagram/DualEnv-System-Diagram.typ": (
+  DualEnv-system, DualEnv-system-size
 )
-#import "/resources/diagram/Project-Architecture-content.typ": (
-  system-overview, system-overview-size
+#import "/resources/diagram/Probe-Architecture-Diagram.typ": (
+  probe-architecture, probe-architecture-size
 )
 
 #show raw: set text(size: 7pt)
@@ -54,7 +54,7 @@ This chapter presents the design of the probe and the system in which it is inte
 
   The following diagram illustrates the overall architecture of the configuration and test environments, including the probes, MQTT brokers, coordinators, and the different networks involved.
   #figure(
-    fit(system-size.w - 5cm, system-size.h - 6.5cm, system()),
+    fit(DualEnv-system-size.w - 5cm, DualEnv-system-size.h - 6.5cm, DualEnv-system()),
     caption: [Diagram of the dual-environement system],
   ) <sys-overview>
 
@@ -85,7 +85,7 @@ This chapter presents the design of the probe and the system in which it is inte
   The following diagram shows the main packages of the probe and the relationships between them. It illustrates how the probe package interacts with the supporting packages to provide the required functionality.
   
   #figure(
-    fit(system-overview-size.w - 3.5cm, system-overview-size.h, system-overview()),
+    fit(probe-architecture-size.w - 3.5cm, probe-architecture-size.h, probe-architecture()),
     caption: [Architecture of the probe],
   ) <probe-architecture>
 

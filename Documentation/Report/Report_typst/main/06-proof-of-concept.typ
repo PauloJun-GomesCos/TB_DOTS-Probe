@@ -1,8 +1,8 @@
 #import "../metadata.typ": *
 
 #import "../resources/diagram/fit.typ": fit
-#import "../resources/diagram/MQTT-Communication-content.typ": (
-  mqtt-setup-sequence, mqtt-setup-sequence-size, mqtt-command-sequence, mqtt-command-sequence-size, mqtt-discovery-sequence, mqtt-discovery-sequence-size,
+#import "../resources/diagram/MQTT-Communication-Diagram.typ": (
+  mqtt-config-sequence, mqtt-config-sequence-size, mqtt-command-sequence, mqtt-command-sequence-size, mqtt-discovery-sequence, mqtt-discovery-sequence-size,
 )
 
 #pagebreak()

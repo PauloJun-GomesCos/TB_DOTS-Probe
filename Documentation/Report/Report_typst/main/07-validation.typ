@@ -1,8 +1,8 @@
 #import "../metadata.typ": *
 
 #import "/resources/diagram/fit.typ": fit
-#import "/resources/diagram/banctest-content.typ": (
-  banctest, banctest-size
+#import "/resources/diagram/TestBench-Diagram.typ": (
+  testbench, testbench-size
 )
 
 #pagebreak()
@@ -60,7 +60,7 @@ The validation is then divided into two main parts. First, functional tests are 
   The diagram below presents the complete architecture of the test bench and the connections between the different devices.
   
   #figure(
-    fit(banctest-size.w - 2cm, banctest-size.h, banctest()),
+    fit(testbench-size.w - 2cm, testbench-size.h, testbench()),
     caption: [Test bench],
   ) <test-bench>
 
