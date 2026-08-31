@@ -1,4 +1,4 @@
-#import "../metadata.typ": *
+  #import "../metadata.typ": *
 #pagebreak()
 = #i18n("introduction-title", lang:option.lang) <sec:intro>
 
