@@ -18,7 +18,6 @@ The repository is divided into three main directories:
 .
 ├── Code/
 ├── Documentation/
-├── Report/
 └── Functional-Test/
 ```
 
@@ -48,17 +47,14 @@ The implemented network capabilities include the following commands:
 
 ### Documentation
 
-The `Documentation/` directory contains contains additional technical documentation
-for developers and users of the probe.
+The `Documentation/` directory contains the documentation and deliverables produced during the bachelor's thesis.
 
 It includes:
-- A guide that explains how to extend the probe. It explains how to add a new capability, configuration group, or configuration parameter while ensuring that the required metadata is included in the announce message and can therefore be displayed correctly in the coordinator web interface.
-
-### Report
-
-The `Report/` directory contains the Bachelor's thesis report.
-
-The Report/ directory contains the Bachelor's thesis report. It presents the project context and objectives, the sustainability considerations, the analysis and selection of the probe hardware, the system design and architecture, the implementation of the probe and its communication with the coordinator, its deployment and network configuration, as well as the implemented network capabilities. The report also presents a proof of concept, the functional and performance validation performed on the test bench, and a discussion of the results, limitations, and future perspectives.
+- **`Report/` directory** – Contains the original Typst source files of the Bachelor's thesis report and the final report in PDF format.
+- **Presentation** – The PowerPoint presentation used for the Bachelor's thesis defense.
+- **Poster** – The poster created to present the project.
+- **One-Page Summary** – A one-page summary providing a concise overview of the project.
+- **Extending guide** – A guide that explains how to extend the probe. It explains how to add a new capability, configuration group, or configuration parameter while ensuring that the required metadata is included in the announce message and can therefore be displayed correctly in the coordinator web interface.
 
 ### Functional Tests
 
